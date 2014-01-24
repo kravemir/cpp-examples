@@ -1,6 +1,8 @@
 project(ini-loader-flex-bison)
 cmake_minimum_required(VERSION 2.8)
 
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -g -ftest-coverage -fprofile-arcs")
+
 # Create target for the parser
 ADD_CUSTOM_TARGET(ini-loader-flex-bisonParser echo "Creating parser.cpp, lexer.cpp")
 

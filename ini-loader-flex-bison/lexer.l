@@ -12,9 +12,11 @@
 	#include "IniLexer.h"
 	// used to keep track of location
 	#define YY_USER_ACTION yylloc->columns(yyleng);
+	
+	using TOKEN = IniLoader::Parser::token;
 %}
 
-%option nodefault yyclass="Scanner" noyywrap c++
+%option nodefault yyclass="IniLexer" noyywrap c++
 
 %%
 
@@ -24,9 +26,9 @@
 
 [^\[\]\n= \t][^\[\]\n=]+[^\[\]\n= \t]  { *yylval = yytext; return IniLoader::Parser::token::STRING; }
 
-"["          { return IniLoader::Parser::token::SECTION_START; }
-"]"          { return IniLoader::Parser::token::SECTION_END; }
-"="          { return IniLoader::Parser::token::ASSIGNMENT; }
+"["          { return TOKEN::SECTION_START; }
+"]"          { return TOKEN::SECTION_END; }
+"="          { return TOKEN::ASSIGNMENT; }
 .            { yylloc->step(); }
 "\n"+        { yylloc->lines(yyleng); yylloc->step(); }
 
